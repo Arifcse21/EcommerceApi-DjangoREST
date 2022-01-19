@@ -4,11 +4,15 @@ from django.db import models
 class Category(models.Model):
     title = models.CharField(max_length=255)
 
+    class Meta:
+        verbose_name_plural = 'categories'
+
     def __str__(self):
         return self.title
 
 class Book(models.Model):
     title = models.CharField(max_length=255)
+    author = models.CharField(max_length=100)
     category = models.ForeignKey(Category, related_name='books', on_delete=models.CASCADE)
     isbn = models.CharField(max_length=13)
     price = models.DecimalField(max_digits=9,decimal_places=2)
@@ -25,8 +29,8 @@ class Book(models.Model):
         return self.title
 
 class Product(models.Model):
-    product_tag = models.CharField(max_length=15)
-    name = models.CharField(max_length=15)
+    product_tag = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
     category = models.ForeignKey(Category,related_name='products', on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=9,decimal_places=2)
     stock = models.IntegerField()
